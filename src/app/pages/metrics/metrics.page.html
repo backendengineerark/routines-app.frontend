@@ -1,0 +1,31 @@
+<section style="z-index: -1;" align="center">
+
+    <mat-form-field>
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date">
+          <input matEndDate placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <br>
+    <mat-card class="metrics-card" style="display: inline-block">
+        <mat-card-content align="center">
+            <h2 style="color: #4caf4f">Historic Utilization</h2>
+            <h1 style="color: #4caf4f"><strong>87%</strong></h1>
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card class="metrics-card" theme="forest" style="display: inline-block; margin-left: 1%;">
+        <mat-card-content align="center">
+            <h2 style="color: #3f50b5">Historic That filter</h2>
+            <h1 style="color: #3f50b5"><strong>87%</strong></h1>
+        </mat-card-content>
+    </mat-card>
+</section>
+
+<div style="margin: 3% 5%;">
+    <canvas id="canvas">{{chart}}</canvas>
+</div>
