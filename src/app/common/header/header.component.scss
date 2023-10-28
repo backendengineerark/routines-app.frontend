@@ -1,0 +1,13 @@
+.mat-toolbar-fixed {
+    display:flex;
+    position: fixed;
+    justify-content: space-between;
+}
+
+.page-name {
+    padding-top: 4%;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
