@@ -2,13 +2,16 @@
 
     <mat-form-field>
         <mat-label>Enter a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-          <input matStartDate placeholder="Start date">
-          <input matEndDate placeholder="End date">
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate placeholder="Start date" formControlName="start">
+          <input matEndDate placeholder="End date" formControlName="end">
         </mat-date-range-input>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
+    <button mat-icon-button (click)="filterData()" color="primary" aria-label="Example icon button with a filter list icon" style="margin-left: 10px;">
+        <mat-icon>search</mat-icon>
+    </button>
 
     <br>
     <mat-card class="metrics-card" style="display: inline-block">
@@ -26,6 +29,6 @@
     </mat-card>
 </section>
 
-<div style="margin: 3% 5%;">
+<div style="margin: 3% 1%;">
     <canvas id="canvas">{{chart}}</canvas>
 </div>

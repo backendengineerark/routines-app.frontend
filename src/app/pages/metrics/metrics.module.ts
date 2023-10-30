@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MetricsPage } from './metrics.page';
 import { MetricsRoutingModule } from './metrics.routing.module';
 import { MaterialModule } from 'src/app/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +14,9 @@ import { MaterialModule } from 'src/app/material.module';
   imports: [
     CommonModule,
     MetricsRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MetricsModule { }

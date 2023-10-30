@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 import Chart from 'chart.js/auto';
 
 @Component({
@@ -8,17 +10,52 @@ import Chart from 'chart.js/auto';
 })
 export class MetricsPage implements OnInit {
 
-  chart: any = [];
+  chart: any = null;
+  endDate: Date = new Date();
+  initDate: Date = new Date(this.endDate.getFullYear(), this.endDate.getMonth(), 1);
+
+  range: FormGroup = new FormGroup({
+    start: new FormControl<Date | null>(this.initDate),
+    end: new FormControl<Date | null>(this.endDate),
+  });
+
+  constructor(private dateAdapter: DateAdapter<Date>) {
+    this.dateAdapter.setLocale('pt-BR');
+
+    this.initDate = new Date(this.endDate.getFullYear(), this.endDate.getMonth(), 1);
+    this.initDate.setHours(0);
+    this.initDate.setMinutes(0);
+    this.initDate.setSeconds(0);
+
+    this.endDate = new Date();
+    this.endDate.setHours(0);
+    this.endDate.setMinutes(0);
+    this.endDate.setSeconds(0);
+  }
   
   ngOnInit(): void {
     this.initChart();
   }
 
-  initChart() {
+  filterData() {
+    this.initDate = this.range.value.start;
+    this.endDate = this.range.value.end;
+    console.log();
+
+    this.initChart();
+    
+  }
+
+  initChart(): void {
+
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
     this.chart = new Chart('canvas', {
       type: 'bar',
       data: {
-        labels: ['22/10', '23/10', '24/10', '25/10', '26/10', '27/10', '28/10'],
+        labels: this.getLabels(this.initDate, this.endDate),
         datasets: [
           {
             label: 'Completed',
@@ -46,7 +83,7 @@ export class MetricsPage implements OnInit {
         plugins: {
           title: {
               display: true,
-              text: 'Metrics from 22/10 to 28/10'
+              text: `Metrics from ${this.initDate.toLocaleString('pt-BR', {year: 'numeric', month: '2-digit', day: '2-digit'})} to ${this.endDate.toLocaleString('pt-BR', {year: 'numeric', month: '2-digit', day: '2-digit'})}`
           },
           tooltip: {
             callbacks: {
@@ -59,6 +96,38 @@ export class MetricsPage implements OnInit {
         }
       },
     });
+  }
+
+  getLabels(initialDate: Date, endDate: Date): string[] {
+    const labels: string[] = [];
+
+    if (initialDate.toISOString().split('T')[0] > endDate.toISOString().split('T')[0]) {
+      return labels;
+    }
+
+    let incrementDate: number = 0;
+    let pendingFormatDates: boolean = true;
+    while (pendingFormatDates) {
+      const customDate: Date = new Date(initialDate);
+      customDate.setDate(customDate.getDate() + incrementDate);
+      customDate.setHours(0);
+      customDate.setMinutes(0);
+      customDate.setSeconds(0);
+
+      if (customDate.toISOString().split('T')[0] > endDate.toISOString().split('T')[0]) {
+        pendingFormatDates = false;
+        break;
+      } 
+      labels.push(this.formatDate(customDate));
+
+      incrementDate++;
+    }
+
+    return labels;
+  }
+
+  formatDate(date: Date): string {
+    return `${date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()}/${date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1}`;
   }
 
 }
