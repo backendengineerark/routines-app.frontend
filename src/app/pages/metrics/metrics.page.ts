@@ -115,6 +115,8 @@ export class MetricsPage implements OnInit {
             data: (this.successPercentageByDay.map(percentage => percentage * 0.6)),
             borderWidth: 3,
             type: 'line',
+            tension: 0.6,
+            pointRadius: 0,
             order: 2
           }
         ],
