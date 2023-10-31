@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/metrics/metrics.module').then(m => m.MetricsModule)
   },
   {
+    path: 'tasks',
+    loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksModule)
+  },
+  {
     path: '',
     redirectTo: 'daily',
     pathMatch: 'full'

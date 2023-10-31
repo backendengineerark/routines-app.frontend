@@ -112,7 +112,7 @@ export class MetricsPage implements OnInit {
           },
           {
             label: 'Completed curve',
-            data: (this.successPercentageByDay.map(percentage => percentage * 0.6)),
+            data: this.successPercentageByDay.map(percentage => percentage * 0.6),
             borderWidth: 3,
             type: 'line',
             tension: 0.6,

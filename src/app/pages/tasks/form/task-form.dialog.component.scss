@@ -1,0 +1,13 @@
+mat-form-field {
+  width: 100%;
+}
+
+:host {
+  display:flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-dialog-content {
+  flex-grow: 1;
+}

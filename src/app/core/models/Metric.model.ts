@@ -1,4 +1,4 @@
-import { Task } from "./Task.model";
+import { Task } from "./task.model";
 
 export class Metric {
     date: string = '';

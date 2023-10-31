@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Create a new task</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Time</mat-label>
+    <input matInput>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="data.animal">Create</button>
+</div>
