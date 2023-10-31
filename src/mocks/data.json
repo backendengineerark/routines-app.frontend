@@ -1,0 +1,104 @@
+{
+    "metrics": [
+        {
+            "date": "2023-10-01",
+            "daily_tasks": [
+                {
+                    "id": "1111",
+                    "name": "anki",
+                    "is_finished": true
+                },
+                {
+                    "id": "2222",
+                    "name": "other",
+                    "is_finished": true
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": false
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": false
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": true
+                }
+            ]
+        },
+        {
+            "date": "2023-10-02",
+            "daily_tasks": [
+                {
+                    "id": "1111",
+                    "name": "anki",
+                    "is_finished": false
+                },
+                {
+                    "id": "2222",
+                    "name": "other",
+                    "is_finished": true
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": false
+                }
+            ]
+        },
+        {
+            "date": "2023-10-02",
+            "daily_tasks": [
+                {
+                    "id": "1111",
+                    "name": "anki",
+                    "is_finished": true
+                },
+                {
+                    "id": "2222",
+                    "name": "other",
+                    "is_finished": true
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": true
+                }
+            ]
+        },
+        {
+            "date": "2023-10-02",
+            "daily_tasks": [
+                {
+                    "id": "1111",
+                    "name": "anki",
+                    "is_finished": true
+                },
+                {
+                    "id": "2222",
+                    "name": "other",
+                    "is_finished": false
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": false
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": false
+                },
+                {
+                    "id": "2222",
+                    "name": "another",
+                    "is_finished": false
+                }
+            ]
+        }
+    ]
+}

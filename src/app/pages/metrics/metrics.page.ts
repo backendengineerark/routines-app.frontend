@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import Chart from 'chart.js/auto';
+import { Metric } from 'src/app/core/models/metric.model';
+import { MetricsService } from 'src/app/core/services/metrics.service';
 
 @Component({
   selector: 'app-metrics',
@@ -13,13 +15,19 @@ export class MetricsPage implements OnInit {
   chart: any = null;
   endDate: Date = new Date();
   initDate: Date = new Date(this.endDate.getFullYear(), this.endDate.getMonth(), 1);
+  
+  historicUtilization: number = 0;
+  historicThatFilter: number = 0;
+
+  successPercentageByDay: number[] = [];
+  failurePercentageByDay: number[] = [];
 
   range: FormGroup = new FormGroup({
     start: new FormControl<Date | null>(this.initDate),
     end: new FormControl<Date | null>(this.endDate),
   });
 
-  constructor(private dateAdapter: DateAdapter<Date>) {
+  constructor(private dateAdapter: DateAdapter<Date>, private metricsService: MetricsService) {
     this.dateAdapter.setLocale('pt-BR');
 
     this.initDate = new Date(this.endDate.getFullYear(), this.endDate.getMonth(), 1);
@@ -34,7 +42,7 @@ export class MetricsPage implements OnInit {
   }
   
   ngOnInit(): void {
-    this.initChart();
+    this.getMetrics();
   }
 
   filterData() {
@@ -46,8 +54,41 @@ export class MetricsPage implements OnInit {
     
   }
 
-  initChart(): void {
+  getMetrics(): void {
+    this.metricsService.getMetrics(this.initDate, this.endDate)
+      .subscribe(allMetricsData => this.renderMetricsData(allMetricsData));
+    
+  }
 
+  renderMetricsData(allMetrics: Metric[]) {
+    allMetrics.forEach(metric => {
+      let totalSuccess: number = 0;
+      let totalFail: number = 0;
+
+      metric.daily_tasks.forEach(task => {
+        if (task.is_finished) {
+          totalSuccess++;
+        } else {
+          totalFail++;
+        }
+      });
+      this.successPercentageByDay.push(Math.trunc((totalSuccess / metric.daily_tasks.length) * 100));
+      this.failurePercentageByDay.push(Math.trunc((totalFail / metric.daily_tasks.length) * 100));
+    });
+
+    this.renderHistoricPercentage();
+    this.initChart();
+  }
+
+  renderHistoricPercentage() {
+    this.historicThatFilter = 
+    this.successPercentageByDay
+      .reduce((accum: number, actualValue: number) => accum + actualValue, 0) / 
+      this.successPercentageByDay.length;
+      this.historicThatFilter = Number.parseFloat(this.historicThatFilter.toFixed(2));
+  }
+
+  initChart(): void {
     if (this.chart) {
       this.chart.destroy();
     }
@@ -59,25 +100,38 @@ export class MetricsPage implements OnInit {
         datasets: [
           {
             label: 'Completed',
-            data: [80, 100, 80, 40, 20, 100, 40],
+            data: this.successPercentageByDay,
             borderWidth: 1,
+            order: 0
           },
           {
             label: 'Fail',
-            data: [20, 0, 20, 60, 80, 0, 60],
+            data: this.failurePercentageByDay,
             borderWidth: 1,
+            order: 1
           },
+          {
+            label: 'Completed curve',
+            data: (this.successPercentageByDay.map(percentage => percentage * 0.6)),
+            borderWidth: 3,
+            type: 'line',
+            order: 2
+          }
         ],
       },
       options: {
+        responsive: true,
         scales: {
           y: {
             beginAtZero: true,
             ticks: {
               callback: function(value, index, ticks) {
                   return `${value}%`;
-              }
-            }
+              },
+              stepSize: 10
+            },
+            min: 0,
+            max: 100
           }
         },
         plugins: {
