@@ -1,13 +1,13 @@
-import { Task } from "./task.model";
+import { Routine } from "./routine.model";
 
 export class Metric {
     date: string = '';
-    daily_tasks: Task[] = [];
+    routines: Routine[] = [];
 
     fromJson(json: any) {
         this.date = json.date;
 
-        this.daily_tasks.push(...json.daily_tasks.map((taskJson: any) => new Task().fromJson(taskJson)));
+        this.routines.push(...json.routines.map((routineJson: any) => new Routine().fromJson(routineJson)));
 
         return this;
     }

@@ -1,11 +1,7 @@
 import { Component, Inject } from "@angular/core";
-import { MatButtonModule } from "@angular/material/button";
-import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Routine } from "src/app/core/models/routine.model";
 
 @Component({
     selector: 'app-task-form-dialog',
@@ -14,11 +10,12 @@ export interface DialogData {
   })
 export class TaskFormDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<TaskFormDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private dialogRef: MatDialogRef<TaskFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
-  onNoClick(): void {
+  cancel(): void {
     this.dialogRef.close();
+    this.data.form.reset();
   }
 }

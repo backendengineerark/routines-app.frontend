@@ -65,15 +65,15 @@ export class MetricsPage implements OnInit {
       let totalSuccess: number = 0;
       let totalFail: number = 0;
 
-      metric.daily_tasks.forEach(task => {
-        if (task.is_finished) {
+      metric.routines.forEach(routine => {
+        if (routine.is_finished) {
           totalSuccess++;
         } else {
           totalFail++;
         }
       });
-      this.successPercentageByDay.push(Math.trunc((totalSuccess / metric.daily_tasks.length) * 100));
-      this.failurePercentageByDay.push(Math.trunc((totalFail / metric.daily_tasks.length) * 100));
+      this.successPercentageByDay.push(Math.trunc((totalSuccess / metric.routines.length) * 100));
+      this.failurePercentageByDay.push(Math.trunc((totalFail / metric.routines.length) * 100));
     });
 
     this.renderHistoricPercentage();

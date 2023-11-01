@@ -1,16 +1,63 @@
 <h1 mat-dialog-title>Create a new task</h1>
-<div mat-dialog-content>
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Time</mat-label>
-    <input matInput>
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-flat-button color="primary" [mat-dialog-close]="data.animal">Create</button>
-</div>
+<form [formGroup]="data.form">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="data.form.get('name').errors?.['required']">
+        Field required
+      </mat-error>
+    </mat-form-field>
+    <br>
+    
+    <mat-form-field style="width: 49%;">
+      <mat-label>Hour</mat-label>
+      <input type="text" matInput formControlName="hour">
+      <mat-error *ngIf="data.form.get('hour').errors?.['pattern']">
+        Only numbers allowed
+      </mat-error>
+      <mat-error *ngIf="data.form.get('hour').errors?.['required']">
+        Field required
+      </mat-error>
+      <mat-error *ngIf="data.form.get('hour').errors?.['max']">
+        Max 23
+      </mat-error>
+      <mat-error *ngIf="data.form.get('hour').errors?.['minlength']">
+        Min 2 numbers
+      </mat-error>
+      <mat-error *ngIf="data.form.get('hour').errors?.['maxlength']">
+        Max 2 numbers
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 49%; margin-left: 2%;">
+      <mat-label>Minute</mat-label>
+      <input type="text" matInput formControlName="minute">
+      <mat-error *ngIf="data.form.get('minute').errors?.['pattern']">
+        Only numbers allowed
+      </mat-error>
+      <mat-error *ngIf="data.form.get('minute').errors?.['required']">
+        Field required
+      </mat-error>
+      <mat-error *ngIf="data.form.get('minute').errors?.['max']">
+        Max 59
+      </mat-error>
+      <mat-error *ngIf="data.form.get('minute').errors?.['minlength']">
+        Min 2 numbers
+      </mat-error>
+      <mat-error *ngIf="data.form.get('minute').errors?.['maxlength']">
+        Max 2 numbers
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+    <br>
+    <br>
+    <br>
+  
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="data.form" [disabled]="data.form.invalid || data.form.pending">{{data.type == 'create' ? 'Create' : 'Update'}}</button>
+  </div>
+</form>

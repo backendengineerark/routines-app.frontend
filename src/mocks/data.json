@@ -1,104 +1,141 @@
 {
-    "metrics": [
+  "tasks": [
+    {
+      "name": "Task test updated",
+      "time": "10:45",
+      "id": 1
+    },
+    {
+      "name": "Task test xxxxx",
+      "time": "19:00",
+      "id": 2
+    },
+    {
+      "name": "another",
+      "time": "20:30",
+      "id": 3
+    },
+    {
+      "name": "the task",
+      "time": "17:23",
+      "id": 4
+    },
+    {
+      "name": "requir",
+      "time": "15:00",
+      "id": 5
+    },
+    {
+      "name": "another one",
+      "time": "12:12",
+      "id": 6
+    },
+    {
+      "name": "test",
+      "time": "23:59",
+      "id": 7
+    }
+  ],
+  "metrics": [
+    {
+      "date": "2023-10-01",
+      "routines": [
         {
-            "date": "2023-10-01",
-            "daily_tasks": [
-                {
-                    "id": "1111",
-                    "name": "anki",
-                    "is_finished": true
-                },
-                {
-                    "id": "2222",
-                    "name": "other",
-                    "is_finished": true
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": false
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": false
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": true
-                }
-            ]
+          "id": "1111",
+          "task_name": "anki",
+          "is_finished": true
         },
         {
-            "date": "2023-10-02",
-            "daily_tasks": [
-                {
-                    "id": "1111",
-                    "name": "anki",
-                    "is_finished": false
-                },
-                {
-                    "id": "2222",
-                    "name": "other",
-                    "is_finished": true
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": false
-                }
-            ]
+          "id": "2222",
+          "task_name": "other",
+          "is_finished": true
         },
         {
-            "date": "2023-10-03",
-            "daily_tasks": [
-                {
-                    "id": "1111",
-                    "name": "anki",
-                    "is_finished": true
-                },
-                {
-                    "id": "2222",
-                    "name": "other",
-                    "is_finished": true
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": true
-                }
-            ]
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": false
         },
         {
-            "date": "2023-10-04",
-            "daily_tasks": [
-                {
-                    "id": "1111",
-                    "name": "anki",
-                    "is_finished": true
-                },
-                {
-                    "id": "2222",
-                    "name": "other",
-                    "is_finished": false
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": false
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": false
-                },
-                {
-                    "id": "2222",
-                    "name": "another",
-                    "is_finished": false
-                }
-            ]
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": false
+        },
+        {
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": true
         }
-    ]
+      ]
+    },
+    {
+      "date": "2023-10-02",
+      "routines": [
+        {
+          "id": "1111",
+          "task_name": "anki",
+          "is_finished": false
+        },
+        {
+          "id": "2222",
+          "task_name": "other",
+          "is_finished": true
+        },
+        {
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": false
+        }
+      ]
+    },
+    {
+      "date": "2023-10-03",
+      "routines": [
+        {
+          "id": "1111",
+          "task_name": "anki",
+          "is_finished": true
+        },
+        {
+          "id": "2222",
+          "task_name": "other",
+          "is_finished": true
+        },
+        {
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": true
+        }
+      ]
+    },
+    {
+      "date": "2023-10-04",
+      "routines": [
+        {
+          "id": "1111",
+          "task_name": "anki",
+          "is_finished": true
+        },
+        {
+          "id": "2222",
+          "task_name": "other",
+          "is_finished": false
+        },
+        {
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": false
+        },
+        {
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": false
+        },
+        {
+          "id": "2222",
+          "task_name": "another",
+          "is_finished": false
+        }
+      ]
+    }
+  ]
 }
