@@ -85,8 +85,8 @@ export class TasksPage implements OnInit {
 
     this.taskForm.setValue({
       name: taskToUpdate.name,
-      hour: taskToUpdate.time.split(':')[0],
-      minute: taskToUpdate.time.split(':')[1]
+      hour: taskToUpdate.dueTime.split(':')[0],
+      minute: taskToUpdate.dueTime.split(':')[1]
     });
     
     const dialogRef = this.dialog.open(TaskFormDialogComponent, {
@@ -133,13 +133,13 @@ export class TasksPage implements OnInit {
   createTask(data: any) {
     const newTask: Task = new Task();
     newTask.name = data.name;
-    newTask.time = `${data.hour}:${data.minute}`;
+    newTask.dueTime = `${data.hour}:${data.minute}:00`;
 
     this.taskService.saveTasks(newTask)
     .subscribe({
       next: () => {
         this.getAllTasks();
-        
+        this.taskForm.reset();
       },
       error: (error) => {
           console.log(error)
@@ -150,7 +150,7 @@ export class TasksPage implements OnInit {
   updateTask(taskToUpdate: Task, data: any) {
     const newTask: Task = new Task();
     newTask.name = data.name;
-    newTask.time = `${data.hour}:${data.minute}`;
+    newTask.dueTime = `${data.hour}:${data.minute}:00`;
 
     this.taskService.updateTasks(taskToUpdate.id, newTask)
     .subscribe({

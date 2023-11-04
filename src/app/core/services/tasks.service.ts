@@ -23,7 +23,7 @@ export class TasksService {
     }
 
     saveTasks(task: Task): Observable<any> {
-        return this.http.post(`${Environment.API_URL}/tasks`, task);
+        return this.http.post(`${Environment.API_URL}/tasks`, {...task, due_time: task.dueTime});
     }
 
     updateTasks(id: string, task: Task): Observable<any> {

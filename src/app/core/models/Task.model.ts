@@ -1,7 +1,7 @@
 export class Task {
     id: string;
     name: string;
-    time: string;
+    dueTime: string;
     completedTimes: number;
     failedTimes: number;
     utilization: number;
@@ -11,7 +11,7 @@ export class Task {
     fromJson(json: any) {
         this.id           = json.id;
         this.name     = json.name;
-        this.time    = json.time;
+        this.dueTime    = json.due_time;
 
         this.completedTimes = json.completed_times;
         this.failedTimes = json.failed_times;
