@@ -28,6 +28,7 @@ export class TasksPage implements OnInit {
 
   taskForm: FormGroup;
   tasks: Task[];
+  showingActiveTasks: boolean = true
 
   displayedColumns: string[] = ['name', 'time', 'completed times', 'failed times', 'utilization', 'star'];
 
@@ -39,7 +40,7 @@ export class TasksPage implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.getAllTasks();
+    this.getAllActiveTasks();
   }
 
   initForm() {
@@ -125,9 +126,16 @@ export class TasksPage implements OnInit {
     });
   }
 
-  getAllTasks() {
-    this.taskService.getTasks('1')
+  getAllActiveTasks() {
+    this.taskService.getTasks('1', false)
       .subscribe(tasks => this.tasks = tasks);
+      this.showingActiveTasks = true
+  }
+
+  getAllArchivedTasks() {
+    this.taskService.getTasks('1', true)
+      .subscribe(tasks => this.tasks = tasks);
+      this.showingActiveTasks = false
   }
 
   createTask(data: any) {
@@ -138,7 +146,7 @@ export class TasksPage implements OnInit {
     this.taskService.saveTasks(newTask)
     .subscribe({
       next: () => {
-        this.getAllTasks();
+        this.getAllActiveTasks();
         this.taskForm.reset();
       },
       error: (error) => {
@@ -155,7 +163,7 @@ export class TasksPage implements OnInit {
     this.taskService.updateTasks(taskToUpdate.id, newTask)
     .subscribe({
       next: () => {
-        this.getAllTasks();
+        this.getAllActiveTasks();
         
       },
       error: (error) => {

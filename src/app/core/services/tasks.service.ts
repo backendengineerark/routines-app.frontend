@@ -11,11 +11,12 @@ export class TasksService {
 
     constructor(private http: HttpClient) {}
 
-    getTasks(userId: string): Observable<Task[]> {
+    getTasks(userId: string, isArchived: boolean): Observable<Task[]> {
         return this.http
             .get<Task[]>(`${Environment.API_URL}/tasks`, {
                 params: new HttpParams()
                     .set('user_id', userId)
+                    .set('is_archived', isArchived)
             })
             .pipe(map(json => json.map(json => {
             return (new Task()).fromJson(json);

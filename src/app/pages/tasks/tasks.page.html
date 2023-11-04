@@ -3,10 +3,16 @@
   Create
 </button> 
 
-<button mat-fab extended align="end" color="secondary" style="margin-bottom: 1%; margin-left: 1%;" (click)="openCreateDialog()">
+<button *ngIf="showingActiveTasks" mat-fab extended align="end" color="secondary" style="margin-bottom: 1%; margin-left: 1%;" (click)="getAllArchivedTasks()">
   <mat-icon>archive</mat-icon>
   Show Archived tasks
 </button> 
+
+<button *ngIf="!showingActiveTasks" mat-fab extended align="end" color="secondary" style="margin-bottom: 1%; margin-left: 1%;" (click)="getAllActiveTasks()">
+  <mat-icon>reply</mat-icon>
+  Show Active tasks
+</button> 
+
 <table mat-table [dataSource]="tasks" class="mat-elevation-z1">
   
     <!-- Name Column -->
