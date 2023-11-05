@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'daily',
-    loadChildren: () => import('./pages/daily/daily.module').then(m => m.DailyModule)
+    path: 'routine',
+    loadChildren: () => import('./pages/routine/routine.module').then(m => m.RoutineModule)
   },
   {
     path: 'metrics',

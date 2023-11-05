@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DailyPage } from './daily.page';
+import { RoutinePage } from './routine.page';
 
-describe('DailyPage', () => {
-  let page: DailyPage;
-  let fixture: ComponentFixture<DailyPage>;
+describe('RoutinePage', () => {
+  let page: RoutinePage;
+  let fixture: ComponentFixture<RoutinePage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DailyPage ]
+      declarations: [ RoutinePage ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DailyPage);
+    fixture = TestBed.createComponent(RoutinePage);
     page = fixture.componentInstance;
     fixture.detectChanges();
   });

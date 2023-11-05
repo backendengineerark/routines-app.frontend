@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DailyPage } from './daily.page';
+import { RoutinePage } from './routine.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DailyPage
+    component: RoutinePage
   }
 ]
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class DailyRoutingModule { }
+export class RoutineRoutingModule { }

@@ -1,14 +1,20 @@
+import { Task } from "./task.model";
+
 export class Routine {
     id: string;
-    task_name: string;
-    due_time: string;
+    task: Task
+    reference_date: string;
     is_finished: boolean;
+    created_at: Date;
+    updatedAt: Date;
 
     fromJson(json: any) {
         this.id           = json.id;
-        this.due_time     = json.due_time;
-        this.task_name    = json.task_name;
-        this.is_finished  = json.is_finished;
+        this.task = new Task().fromJson(json.task)
+        this.reference_date     = json.reference_date;
+        this.is_finished = json.is_finished
+        this.created_at    = new Date(json.created_at);
+        this.updatedAt  = new Date(json.updated_at);
 
         return this;
     }

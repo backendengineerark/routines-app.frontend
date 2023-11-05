@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DailyPage } from './daily.page';
-import { DailyRoutingModule } from './daily.routing.module';
+import { RoutinePage } from './routine.page';
+import { RoutineRoutingModule } from './routine.routing.module';
 import { MaterialModule } from 'src/app/material.module';
 
 
 
 @NgModule({
   declarations: [
-    DailyPage
+    RoutinePage
   ],
   imports: [
     CommonModule,
-    DailyRoutingModule,
+    RoutineRoutingModule,
     MaterialModule
   ]
 })
-export class DailyModule { }
+export class RoutineModule { }

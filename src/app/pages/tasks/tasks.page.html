@@ -15,37 +15,31 @@
 
 <table mat-table [dataSource]="tasks" class="mat-elevation-z1">
   
-    <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
   
-    <!-- Weight Column -->
     <ng-container matColumnDef="time" sticky>
       <th mat-header-cell *matHeaderCellDef> Time </th>
       <td mat-cell *matCellDef="let element"> {{element.dueTime.split(":")[0]}}:{{element.dueTime.split(":")[1]}} </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="completed times">
         <th mat-header-cell *matHeaderCellDef> Completed times </th>
         <td mat-cell *matCellDef="let element"> {{element.completedTimes}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
     <ng-container matColumnDef="failed times">
         <th mat-header-cell *matHeaderCellDef> Failed times </th>
         <td mat-cell *matCellDef="let element"> {{element.failedTimes}} </td>
       </ng-container>
 
-      <!-- Weight Column -->
     <ng-container matColumnDef="utilization">
       <th mat-header-cell *matHeaderCellDef> Utilization </th>
       <td mat-cell *matCellDef="let element"> {{element.utilization}}% </td>
     </ng-container>
 
-    <!-- Star Column -->
     <ng-container matColumnDef="star" stickyEnd>
       <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
       <td mat-cell *matCellDef="let element">
@@ -60,6 +54,10 @@
           <button mat-menu-item (click)="openArchiveDialog(element.id)">
             <mat-icon class="orange-icon">archive</mat-icon>
             <span class="orange-icon">Archive</span>
+          </button>
+          <button mat-menu-item (click)="openArchiveDialog(element.id)">
+            <mat-icon class="red-icon">delete</mat-icon>
+            <span class="red-icon">Delete</span>
           </button>
         </mat-menu>
       </td>
