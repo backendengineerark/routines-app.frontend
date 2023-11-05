@@ -31,6 +31,9 @@ export class RoutinePage implements OnInit {
   }
 
   getRoutines(date: Date) {
+    this.pendingRoutine = [];
+    this.finishedRoutine = [];
+    
     this.routineService.getRoutines("1", date).subscribe(routines => {
       routines.forEach(routine => {
         if (routine.is_finished) {
@@ -46,5 +49,16 @@ export class RoutinePage implements OnInit {
   renderTables() {
     this.pendingTable.renderRows();
     this.finishedTable.renderRows();
+  }
+
+  finishRoutine(taskId: string) {
+    this.routineService.finishRoutines("1", taskId)
+      .subscribe(success => this.getRoutines(new Date()))
+  }
+
+
+  unfinishRoutine(taskId: string) {
+    this.routineService.unfinishRoutines("1", taskId)
+      .subscribe(success => this.getRoutines(new Date()))
   }
 }

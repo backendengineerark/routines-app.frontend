@@ -24,6 +24,16 @@ export class RoutinesService {
         })));
     }
 
+    finishRoutines(userId: string, taskId: string): Observable<void> {
+        return this.http
+            .post<void>(`${Environment.API_URL}/routines/${taskId}/today-finish`, {});
+    }
+
+    unfinishRoutines(userId: string, taskId: string): Observable<void> {
+        return this.http
+            .post<void>(`${Environment.API_URL}/routines/${taskId}/today-unfinish`, {});
+    }
+
     formatDate(date = new Date()) {
         return [
           date.getFullYear(),

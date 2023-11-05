@@ -15,7 +15,7 @@
 
       <ng-container matColumnDef="finished">
         <th mat-header-cell *matHeaderCellDef> Finish </th>
-        <td mat-cell *matCellDef="let routine"> <mat-checkbox></mat-checkbox> </td>
+        <td mat-cell *matCellDef="let routine"> <mat-checkbox  (click)="finishRoutine(routine.task.id)"></mat-checkbox> </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
   
@@ -43,7 +43,7 @@
 
     <ng-container matColumnDef="finished">
       <th mat-header-cell *matHeaderCellDef> Undo </th>
-      <td mat-cell *matCellDef="let routine"> <mat-checkbox checked></mat-checkbox> </td>
+      <td mat-cell *matCellDef="let routine"> <mat-checkbox checked (click)="unfinishRoutine(routine.task.id)"></mat-checkbox> </td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
