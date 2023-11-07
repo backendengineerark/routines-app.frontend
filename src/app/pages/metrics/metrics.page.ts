@@ -81,6 +81,10 @@ export class MetricsPage implements OnInit {
   }
 
   renderHistoricPercentage() {
+    if (this.successPercentageByDay.length == 0) {
+      return;
+    }
+
     this.historicThatFilter = 
     this.successPercentageByDay
       .reduce((accum: number, actualValue: number) => accum + actualValue, 0) / 
