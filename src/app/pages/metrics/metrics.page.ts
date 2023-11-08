@@ -24,21 +24,20 @@ export class MetricsPage implements OnInit {
 
   range: FormGroup = new FormGroup({
     start: new FormControl<Date | null>(this.initDate),
-    end: new FormControl<Date | null>(this.endDate),
+    end: new FormControl<Date | null>(this.yesterday()),
   });
 
   constructor(private dateAdapter: DateAdapter<Date>, private metricsService: MetricsService) {
     this.dateAdapter.setLocale('pt-BR');
 
-    this.initDate = new Date(this.endDate.getFullYear(), this.endDate.getMonth(), 1);
     this.initDate.setHours(0);
     this.initDate.setMinutes(0);
     this.initDate.setSeconds(0);
 
-    this.endDate = new Date();
     this.endDate.setHours(0);
     this.endDate.setMinutes(0);
     this.endDate.setSeconds(0);
+    this.endDate.setDate(this.endDate.getDate() - 1);
   }
   
   ngOnInit(): void {
@@ -48,9 +47,8 @@ export class MetricsPage implements OnInit {
   filterData() {
     this.initDate = this.range.value.start;
     this.endDate = this.range.value.end;
-    console.log();
 
-    this.initChart();
+    this.getMetrics();
     
   }
 
@@ -61,9 +59,17 @@ export class MetricsPage implements OnInit {
   }
 
   renderMetricsData(allMetrics: Metric[]) {
+    this.successPercentageByDay = [];
+    this.failurePercentageByDay = [];
     allMetrics.forEach(metric => {
       let totalSuccess: number = 0;
       let totalFail: number = 0;
+
+      if (metric.routines.length == 0) {
+        this.successPercentageByDay.push(0);
+        this.failurePercentageByDay.push(0);
+        return;
+      } 
 
       metric.routines.forEach(routine => {
         if (routine.is_finished) {
@@ -190,4 +196,9 @@ export class MetricsPage implements OnInit {
     return `${date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()}/${date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1}`;
   }
 
+  yesterday(): Date {
+    const result = new Date();
+    result.setDate(this.endDate.getDate() - 1);
+    return result;
+  }
 }
