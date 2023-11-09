@@ -15,70 +15,70 @@
 
 <table mat-table [dataSource]="tasks" class="mat-elevation-z1" [class.archived-table]="!showingActiveTasks">
   
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="time" sticky>
-      <th mat-header-cell *matHeaderCellDef> Time </th>
-      <td mat-cell *matCellDef="let element"> {{element.dueTime.split(":")[0]}}:{{element.dueTime.split(":")[1]}} </td>
-    </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
 
-    <ng-container matColumnDef="completed times">
-        <th mat-header-cell *matHeaderCellDef> Completed times </th>
-        <td mat-cell *matCellDef="let element"> {{element.completedTimes}} </td>
-      </ng-container>
+  <ng-container matColumnDef="time" sticky>
+    <th mat-header-cell *matHeaderCellDef> Time </th>
+    <td mat-cell *matCellDef="let element"> {{element.dueTime.split(":")[0]}}:{{element.dueTime.split(":")[1]}} </td>
+  </ng-container>
 
-    <ng-container matColumnDef="failed times">
-        <th mat-header-cell *matHeaderCellDef> Failed times </th>
-        <td mat-cell *matCellDef="let element"> {{element.failedTimes}} </td>
-      </ng-container>
-
-    <ng-container matColumnDef="utilization">
-      <th mat-header-cell *matHeaderCellDef> Utilization </th>
-      <td mat-cell *matCellDef="let element" [style.color]="getColorByUtilization(element.utilization)"><b>{{element.utilization}}%</b></td>
+  <ng-container matColumnDef="completed times">
+      <th mat-header-cell *matHeaderCellDef> Completed times </th>
+      <td mat-cell *matCellDef="let element"> {{element.completedTimes}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="star" stickyEnd>
-      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
+  <ng-container matColumnDef="failed times">
+      <th mat-header-cell *matHeaderCellDef> Failed times </th>
+      <td mat-cell *matCellDef="let element"> {{element.failedTimes}} </td>
+    </ng-container>
+
+  <ng-container matColumnDef="utilization">
+    <th mat-header-cell *matHeaderCellDef> Utilization </th>
+    <td mat-cell *matCellDef="let element" [style.color]="getColorByUtilization(element.utilization)"><b>{{element.utilization}}%</b></td>
+  </ng-container>
+
+  <ng-container matColumnDef="star" stickyEnd>
+    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openUpdateDialog(element.id)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
         </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openUpdateDialog(element.id)">
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button *ngIf="!element.isArchived" mat-menu-item (click)="openArchiveDialog(element.id)">
-            <mat-icon class="orange-icon">archive</mat-icon>
-            <span class="orange-icon">Archive</span>
-          </button>
-          <button *ngIf="element.isArchived" mat-menu-item (click)="openUnarchiveDialog(element.id)">
-            <mat-icon class="green-icon">unarchive</mat-icon>
-            <span class="green-icon">Unarchive</span>
-          </button>
-          <button mat-menu-item (click)="openDeleteDialog(element.id)">
-            <mat-icon class="red-icon">delete</mat-icon>
-            <span class="red-icon">Delete</span>
-          </button>
-        </mat-menu>
-      </td>
-    </ng-container>
+        <button *ngIf="!element.isArchived" mat-menu-item (click)="openArchiveDialog(element.id)">
+          <mat-icon class="orange-icon">archive</mat-icon>
+          <span class="orange-icon">Archive</span>
+        </button>
+        <button *ngIf="element.isArchived" mat-menu-item (click)="openUnarchiveDialog(element.id)">
+          <mat-icon class="green-icon">unarchive</mat-icon>
+          <span class="green-icon">Unarchive</span>
+        </button>
+        <button mat-menu-item (click)="openDeleteDialog(element.id)">
+          <mat-icon class="red-icon">delete</mat-icon>
+          <span class="red-icon">Delete</span>
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
 
 
-    <ng-container matColumnDef="disclaimer">
-      <td mat-footer-cell *matFooterCellDef colspan="2">
-        <mat-chip disabled style="background-color: red; margin-right: 1%;"><b>0% & < 50%</b></mat-chip>
-        <mat-chip disabled style="background-color: orange; margin-right: 1%;"> <b>50% & < 70%</b></mat-chip>
-        <mat-chip disabled style="background-color: green;"><b>70% & 100%</b></mat-chip>
-      </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>
-  </table>
+  <ng-container matColumnDef="disclaimer">
+    <td mat-footer-cell *matFooterCellDef colspan="2">
+      <mat-chip disabled style="background-color: red; margin-right: 1%;"><b>0% & < 50%</b></mat-chip>
+      <mat-chip disabled style="background-color: orange; margin-right: 1%;"> <b>50% & < 70%</b></mat-chip>
+      <mat-chip disabled style="background-color: green;"><b>70% & 100%</b></mat-chip>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr>
+</table>
   
   
