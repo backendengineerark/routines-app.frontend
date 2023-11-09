@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'daily',
+    redirectTo: 'routine',
     pathMatch: 'full'
   }
 ];

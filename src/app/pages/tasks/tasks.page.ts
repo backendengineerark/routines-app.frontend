@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TasksService } from 'src/app/core/services/tasks.service';
 import { Task } from 'src/app/core/models/task.model';
 import { TaskArchiveDialogComponent } from './archive/task-archive.dialog.component';
+import { TaskUnarchiveDialogComponent } from './unarchive/task-unarchive.dialog.component';
+import { TaskDeleteDialogComponent } from './delete/task-delete.dialog.component';
 
 @Component({
   selector: 'app-tasks',
@@ -104,12 +106,71 @@ export class TasksPage implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      
       if (! result) {
         return;
       }
-      this.taskService.archiveTasks(taskToArchive.id);
+      this.taskService.archiveTasks(taskToArchive.id)
+      .subscribe({
+        next: () => {
+          this.getAllActiveTasks();
+          this.taskForm.reset();
+        },
+        error: (error) => {
+            console.log(error)
+          }
+        })
+    });
+  }
+
+  openUnarchiveDialog(id: string): void {
+    const taskToUnarchive = this.tasks.find(task => task.id == id);
+
+    const dialogRef = this.dialog.open(TaskUnarchiveDialogComponent, {
+      data: taskToUnarchive,
+      height: '200px',
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (! result) {
+        return;
+      }
+      this.taskService.unarchiveTasks(taskToUnarchive.id)
+      .subscribe({
+        next: () => {
+          this.getAllActiveTasks();
+          this.taskForm.reset();
+        },
+        error: (error) => {
+            console.log(error)
+          }
+        })
+    });
+  }
+
+  openDeleteDialog(id: string): void {
+    const taskToUnarchive = this.tasks.find(task => task.id == id);
+
+    const dialogRef = this.dialog.open(TaskDeleteDialogComponent, {
+      data: taskToUnarchive,
+      height: '200px',
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (! result) {
+        return;
+      }
+      this.taskService.deleteTasks(taskToUnarchive.id)
+      .subscribe({
+        next: () => {
+          this.getAllActiveTasks();
+          this.taskForm.reset();
+        },
+        error: (error) => {
+            console.log(error)
+          }
+        })
     });
   }
 
@@ -151,11 +212,22 @@ export class TasksPage implements OnInit {
     .subscribe({
       next: () => {
         this.getAllActiveTasks();
-        
+        this.taskForm.reset();
       },
       error: (error) => {
         console.log(error)
       }
       })
+  }
+
+  getColorByUtilization(utilization: number): string {
+    if (utilization < 50) {
+      return 'red';
+    } else if (utilization < 70) {
+      return 'orange';
+    } else if (utilization <= 100) {
+      return 'green';
+    }
+    return 'black';
   }
 }

@@ -28,10 +28,18 @@ export class TasksService {
     }
 
     updateTasks(id: string, task: Task): Observable<any> {
-        return this.http.put(`${Environment.API_URL}/tasks/${id}`, task);
+        return this.http.put(`${Environment.API_URL}/tasks/${id}`, {...task, due_time: task.dueTime});
     }
 
     archiveTasks(id: string): Observable<any> {
         return this.http.post(`${Environment.API_URL}/tasks/${id}/archive`, {});
+    }
+
+    unarchiveTasks(id: string): Observable<any> {
+        return this.http.post(`${Environment.API_URL}/tasks/${id}/unarchive`, {});
+    }
+
+    deleteTasks(id: string): Observable<any> {
+        return this.http.delete(`${Environment.API_URL}/tasks/${id}`, {});
     }
 }

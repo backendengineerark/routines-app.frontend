@@ -24,7 +24,7 @@ export class MetricsPage implements OnInit {
 
   range: FormGroup = new FormGroup({
     start: new FormControl<Date | null>(this.initDate),
-    end: new FormControl<Date | null>(this.yesterday()),
+    end: new FormControl<Date | null>(this.endDate),
   });
 
   constructor(private dateAdapter: DateAdapter<Date>, private metricsService: MetricsService) {
@@ -37,7 +37,6 @@ export class MetricsPage implements OnInit {
     this.endDate.setHours(0);
     this.endDate.setMinutes(0);
     this.endDate.setSeconds(0);
-    this.endDate.setDate(this.endDate.getDate() - 1);
   }
   
   ngOnInit(): void {
@@ -194,11 +193,5 @@ export class MetricsPage implements OnInit {
 
   formatDate(date: Date): string {
     return `${date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate()}/${date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1}`;
-  }
-
-  yesterday(): Date {
-    const result = new Date();
-    result.setDate(this.endDate.getDate() - 1);
-    return result;
   }
 }
