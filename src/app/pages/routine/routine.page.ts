@@ -61,4 +61,8 @@ export class RoutinePage implements OnInit {
     this.routineService.unfinishRoutines("1", taskId)
       .subscribe(success => this.getRoutines(new Date()))
   }
+
+  getTaskIndex(index: number) {
+    return ++index;
+  }
 }

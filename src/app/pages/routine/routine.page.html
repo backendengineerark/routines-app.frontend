@@ -3,7 +3,7 @@
 
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let routine"> {{routine.task.name}} </td>
+        <td mat-cell *matCellDef="let routine; let i=index"> {{getTaskIndex(i)}}. {{routine.task.name}} </td>
         <td mat-footer-cell *matFooterCellDef> {{pendingRoutine.length}} Pending routines</td>
       </ng-container>
   
@@ -31,7 +31,7 @@
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let routine"> {{routine.task.name}} </td>
+      <td mat-cell *matCellDef="let routine; let i=index"> {{getTaskIndex(i)}}. {{routine.task.name}} </td>
       <td mat-footer-cell *matFooterCellDef> {{finishedRoutine.length}} Finished routines</td>
     </ng-container>
 

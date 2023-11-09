@@ -230,4 +230,8 @@ export class TasksPage implements OnInit {
     }
     return 'black';
   }
+
+  getTaskIndex(index: number) {
+    return ++index;
+  }
 }
