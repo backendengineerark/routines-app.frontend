@@ -14,7 +14,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 
 # Build the application
-RUN npm run build --  --output-path=dist --output-hashing=all
+RUN npm run build --  --output-path=dist --output-hashing=all --configuration=${ENVIRONMENT}
 
 
 ######  Use NgInx alpine image  ###### 

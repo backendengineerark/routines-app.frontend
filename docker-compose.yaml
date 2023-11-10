@@ -10,4 +10,4 @@ services:
     ports:
       - "4200:80"
     environment:
-      API_URL: http://localhost:5555
+      ENVIRONMENT: production
