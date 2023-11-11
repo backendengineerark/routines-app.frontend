@@ -26,6 +26,15 @@ mat-dialog-content {
   width: 100%;
 }
 
-td {
-  padding-right: 8px;
+section {
+  display: table;
+  width: 70%;
+}
+
+section > * {
+  display: table-row;
+}
+
+section .col {
+  display: table-cell;
 }

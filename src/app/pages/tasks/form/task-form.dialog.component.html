@@ -50,10 +50,53 @@
       </mat-error>
     </mat-form-field>
 
-    <br>
-    <br>
-    <br>
-    <br>
+
+      <section>
+        <div class="row">
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[0].isSelected" (click)="allSelection()">{{data.weekdays[0].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[1].isSelected">{{data.weekdays[1].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[2].isSelected">{{data.weekdays[2].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[3].isSelected">{{data.weekdays[3].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[4].isSelected">{{data.weekdays[4].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[5].isSelected">{{data.weekdays[5].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[6].isSelected">{{data.weekdays[6].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <div class="col">
+            <mat-chip-listbox>
+              <mat-chip-option [selected]="data.weekdays[7].isSelected">{{data.weekdays[7].name}}</mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+        </div>
+      </section>
   
   </div>
   <div mat-dialog-actions>

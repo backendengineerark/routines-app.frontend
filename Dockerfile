@@ -13,8 +13,12 @@ RUN npm install --legacy-peer-deps
 # Copy the source code to the /app directory
 COPY . .
 
+ENV ENVIRONMENT="${ENVIRONMENT}"
+
+RUN echo ${ENVIRONMENT}
+
 # Build the application
-RUN npm run build --  --output-path=dist --output-hashing=all --configuration=${ENVIRONMENT}
+RUN npm run build --  --output-path=dist --output-hashing=all --configuration=development
 
 
 ######  Use NgInx alpine image  ###### 

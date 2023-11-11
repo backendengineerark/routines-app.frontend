@@ -7,6 +7,8 @@ import { Task } from 'src/app/core/models/task.model';
 import { TaskArchiveDialogComponent } from './archive/task-archive.dialog.component';
 import { TaskUnarchiveDialogComponent } from './unarchive/task-unarchive.dialog.component';
 import { TaskDeleteDialogComponent } from './delete/task-delete.dialog.component';
+import { Weekday } from 'src/app/core/models/weekday.model';
+import { WeekdaysService } from 'src/app/core/services/weekdays.service';
 
 @Component({
   selector: 'app-tasks',
@@ -16,20 +18,23 @@ import { TaskDeleteDialogComponent } from './delete/task-delete.dialog.component
 export class TasksPage implements OnInit {
 
   taskForm: FormGroup;
-  tasks: Task[];
-  showingActiveTasks: boolean = true
+  tasks: Task[] = [];
+  weekdays: Weekday[] = [];
+  showingActiveTasks: boolean = true;
 
   displayedColumns: string[] = ['name', 'time', 'completed times', 'failed times', 'utilization', 'star'];
 
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private taskService: TasksService
+    private taskService: TasksService,
+    private weekdaysService: WeekdaysService
     ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.getAllActiveTasks();
+    this.getAllWeekdays();
   }
 
   initForm() {
@@ -56,7 +61,8 @@ export class TasksPage implements OnInit {
     const dialogRef = this.dialog.open(TaskFormDialogComponent, {
       data: {
         type: 'create',
-        form: this.taskForm
+        form: this.taskForm,
+        weekdays: this.weekdays
       },
       height: '400px',
       width: '600px',
@@ -178,6 +184,12 @@ export class TasksPage implements OnInit {
     this.taskService.getTasks('1', false)
       .subscribe(tasks => this.tasks = tasks);
       this.showingActiveTasks = true
+  }
+
+  getAllWeekdays() {
+    this.weekdays.push(new Weekday('ID', 'All days', 0))
+    this.weekdaysService.getWeekdays()
+      .subscribe(weekdays => this.weekdays.push(...weekdays));
   }
 
   getAllArchivedTasks() {
