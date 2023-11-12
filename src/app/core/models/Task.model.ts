@@ -1,3 +1,5 @@
+import { Weekday } from "./weekday.model";
+
 export class Task {
     id: string;
     name: string;
@@ -6,6 +8,7 @@ export class Task {
     completedTimes: number;
     failedTimes: number;
     utilization: number;
+    weekdays: Weekday[];
     createdAt: Date;
     updatedAt: Date;
 
@@ -18,15 +21,20 @@ export class Task {
         this.completedTimes = json.completed_times;
         this.failedTimes    = json.failed_times;
 
+        this.weekdays = json.weekdays;
+
         this.createdAt  = json.created_at;
         this.createdAt  = json.updated_at;
 
-        this.calculateUtilization();
+        this.utilization = this.calculateUtilization();
 
         return this;
     }
 
     calculateUtilization(): number {
-        return this.utilization    = this.completedTimes / (this.completedTimes + this.failedTimes) * 100;
+        if (this.completedTimes == 0 && this.failedTimes == 0) {
+            return 100
+        }
+        return Math.trunc(this.completedTimes / (this.completedTimes + this.failedTimes) * 100);
     }
 }

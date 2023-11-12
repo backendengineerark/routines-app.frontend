@@ -62,7 +62,7 @@ export class TasksPage implements OnInit {
       data: {
         type: 'create',
         form: this.taskForm,
-        weekdays: this.weekdays
+        weekdays: this.weekdays,
       },
       height: '400px',
       width: '600px',
@@ -84,11 +84,21 @@ export class TasksPage implements OnInit {
       hour: taskToUpdate.dueTime.split(':')[0],
       minute: taskToUpdate.dueTime.split(':')[1]
     });
+
+    this.weekdays.forEach(weekday => weekday.isSelected = false);
+    taskToUpdate.weekdays.forEach(weekDay => {
+      this.weekdays.find(day => day.id == weekDay.id).isSelected = true;
+    })
+
+    if (taskToUpdate.weekdays.length == 7) {
+      this.weekdays[0].isSelected = true;
+    }
     
     const dialogRef = this.dialog.open(TaskFormDialogComponent, {
       data: {
         type: 'update',
-        form: this.taskForm
+        form: this.taskForm,
+        weekdays: this.weekdays
       },
       height: '400px',
       width: '600px',
@@ -187,7 +197,7 @@ export class TasksPage implements OnInit {
   }
 
   getAllWeekdays() {
-    this.weekdays.push(new Weekday('ID', 'All days', 0))
+    this.weekdays.push(new Weekday('ID', 'All days', -1))
     this.weekdaysService.getWeekdays()
       .subscribe(weekdays => this.weekdays.push(...weekdays));
   }
@@ -202,12 +212,14 @@ export class TasksPage implements OnInit {
     const newTask: Task = new Task();
     newTask.name = data.name;
     newTask.dueTime = `${data.hour}:${data.minute}:00`;
+    newTask.weekdays = this.weekdays.filter(day => day.id != 'ID' && day.isSelected)
 
     this.taskService.saveTasks(newTask)
     .subscribe({
       next: () => {
         this.getAllActiveTasks();
         this.taskForm.reset();
+        this.weekdays.forEach(weekday => weekday.isSelected = true)
       },
       error: (error) => {
           console.log(error)
@@ -219,12 +231,14 @@ export class TasksPage implements OnInit {
     const newTask: Task = new Task();
     newTask.name = data.name;
     newTask.dueTime = `${data.hour}:${data.minute}:00`;
+    newTask.weekdays = this.weekdays.filter(day => day.id != 'ID' && day.isSelected)
 
     this.taskService.updateTasks(taskToUpdate.id, newTask)
     .subscribe({
       next: () => {
         this.getAllActiveTasks();
         this.taskForm.reset();
+        this.weekdays.forEach(weekday => weekday.isSelected = true)
       },
       error: (error) => {
         console.log(error)

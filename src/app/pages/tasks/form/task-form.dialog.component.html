@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Create a new task</h1>
+<h1 mat-dialog-title>{{data.type == 'create' ? 'Create a new task' : 'Update task'}}</h1>
 <form [formGroup]="data.form">
   <div mat-dialog-content>
     <mat-form-field>
@@ -55,52 +55,55 @@
         <div class="row">
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[0].isSelected" (click)="allSelection()">{{data.weekdays[0].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[0].isSelected" (click)="selectWeekday(data.weekdays[0])">{{data.weekdays[0].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[1].isSelected">{{data.weekdays[1].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[1].isSelected" (click)="selectWeekday(data.weekdays[1])">{{data.weekdays[1].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[2].isSelected">{{data.weekdays[2].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[2].isSelected" (click)="selectWeekday(data.weekdays[2])">{{data.weekdays[2].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[3].isSelected">{{data.weekdays[3].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[3].isSelected" (click)="selectWeekday(data.weekdays[3])">{{data.weekdays[3].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[4].isSelected">{{data.weekdays[4].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[4].isSelected" (click)="selectWeekday(data.weekdays[4])">{{data.weekdays[4].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[5].isSelected">{{data.weekdays[5].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[5].isSelected" (click)="selectWeekday(data.weekdays[5])">{{data.weekdays[5].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[6].isSelected">{{data.weekdays[6].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[6].isSelected" (click)="selectWeekday(data.weekdays[6])">{{data.weekdays[6].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
           <div class="col">
             <mat-chip-listbox>
-              <mat-chip-option [selected]="data.weekdays[7].isSelected">{{data.weekdays[7].name}}</mat-chip-option>
+              <mat-chip-option [selected]="data.weekdays[7].isSelected" (click)="selectWeekday(data.weekdays[7])">{{data.weekdays[7].name}}</mat-chip-option>
             </mat-chip-listbox>
           </div>
         </div>
       </section>
+      <span class="field-error" *ngIf="! atLeastOneWeekdaySelected">
+        At least one day is requred
+      </span>
   
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="cancel()">Cancel</button>
-    <button mat-flat-button color="primary" [mat-dialog-close]="data.form" [disabled]="data.form.invalid || data.form.pending">{{data.type == 'create' ? 'Create' : 'Update'}}</button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="data.form" [disabled]="data.form.invalid || data.form.pending || ! atLeastOneWeekdaySelected">{{data.type == 'create' ? 'Create' : 'Update'}}</button>
   </div>
 </form>

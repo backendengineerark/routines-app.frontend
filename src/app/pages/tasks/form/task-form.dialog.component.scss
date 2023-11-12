@@ -38,3 +38,9 @@ section > * {
 section .col {
   display: table-cell;
 }
+
+.field-error {
+  color: red;
+  font-size: 12px;
+  font-weight: 400;
+}
